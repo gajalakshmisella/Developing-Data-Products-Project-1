@@ -1,4 +1,19 @@
-players <- read.csv("nba_players.csv")
+library(XML)
+
+# can read a stored file on shiny server, so read the data in every time....
+#players <- read.csv("nba_players.csv")
+
+urls <- paste0("http://www.basketball-reference.com/players/",letters,"/")
+
+# remove X, no player names start with that letter
+urls <- urls[-24]
+players <- {}
+
+for (i in 1:length(urls) ) {
+  players <- rbind(players, readHTMLTable(urls[i])[[1]])
+}
+
+### we now have the raw data read into players data frame
 
 # set the features to the right type
 players$Birth.Date <- as.Date(players$Birth.Date, format = "%B %d, %Y")
