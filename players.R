@@ -16,6 +16,7 @@ for (i in 1:length(urls) ) {
 ### we now have the raw data read into players data frame
 
 # set the features to the right type
+colnames(players[7]) <- "Birth.Date"
 players$Birth.Date <- as.Date(players$Birth.Date, format = "%B %d, %Y")
 players$From <- as.numeric(players$From)
 players$To <- as.numeric(players$To)
