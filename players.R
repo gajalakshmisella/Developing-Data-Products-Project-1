@@ -40,7 +40,6 @@ players$Pos <-factor(players$Pos, levels=c("G", "F", "C"))
 
 players$BMI <- (players$Wt * 703) / players$HeightInches^2
 
-#totals <- aggregate(c(HeightInches, Wt, RookieAge, BMI) ~ From, players, mean)
 totals <- aggregate(. ~ From, players, mean)
 
 # remove players that are still active
@@ -52,27 +51,3 @@ totals <- aggregate(. ~ From, players, mean)
 #qplot(From, Wt, data = totals) + stat_smooth()
 #qplot(From, RookieAge, data = totals) + stat_smooth()
 #qplot(From, BMI, data = totals) + stat_smooth()
-
-
-#################
-
-###
-
-#boxplot(players$Career.Years ~ players$Pos, col="light blue",ylab="Years",xlab="Position", main="Length of Career by Position")
-
-#qplot(HeightInches, Career.Years, data = players, facets= . ~ Pos, geom="jitter")
-#qplot(BMI, Career.Years, data = players, colour=Pos, geom="jitter")
-
-
-#boxplot(tbl$LEN~tbl$HOF,col="light blue",ylab="Years",xlab="Position",
-#        main="Length of Career HOF vs. others")
-
-
-
-#boxplot(tbl$RetireAge~tbl$Position,col="light blue",ylab="Retirement Age",xlab="Position",
-#        main="Retirement Age by Position")
-
-
-#boxplot(tbl$RetireAge~tbl$HOF,col="light blue",ylab="Retirement Age",xlab="Position",
-#        main="Retirement Age HOF vs. rest")
-
