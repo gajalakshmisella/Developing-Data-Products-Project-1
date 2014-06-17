@@ -10,19 +10,20 @@ urls <- urls[-24]
 players <- {}
 
 for (i in 1:length(urls) ) {
-  players <- rbind(players, readHTMLTable(urls[i])[[1]])
+  players <- rbind(players, readHTMLTable(urls[i], stringsAsFactors = FALSE)[[1]])
 }
 
 ### we now have the raw data read into players data frame
 
 # set the features to the right type
-colnames(players[7]) <- "Birth.Date"
+colnames(players)[7] <- "Birth.Date"
 players$Birth.Date <- as.Date(players$Birth.Date, format = "%B %d, %Y")
 players$From <- as.numeric(players$From)
 players$To <- as.numeric(players$To)
+players$Wt <- as.numeric(players$Wt)
 
 # calculate how many years the player played
-players$Career.Years <- players$To - players$From
+players$Career.Years <- as.numeric(players$To - players$From)
 
 #Hall of famers
 players$HOF <- 0
@@ -54,9 +55,9 @@ players$Pos <-factor(players$Pos, levels=c("G", "F", "C"))
 
 # lets add BMI to the stats too
 
-players$BMI <- (players$Wt * 703) / players$HeightInches^2
+players$BMI <- (as.numeric(players$Wt) * 703) / players$HeightInches^2
 
-totals <- aggregate(. ~ From, players, mean)
+totals <- aggregate(cbind(HeightInches, Wt, RookieAge, BMI) ~ From, data = players, FUN = mean)
 
 # remove players that are still active
 #active_players <- players[players$To == 2014,]
