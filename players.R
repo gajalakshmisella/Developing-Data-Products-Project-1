@@ -10,7 +10,7 @@ urls <- urls[-24]
 players <- {}
 
 for (i in 1:length(urls) ) {
-  players <- rbind(players, readHTMLTable(urls[i], stringsAsFactors = FALSE)[[1]])
+    players <- rbind(players, readHTMLTable(urls[i], stringsAsFactors = FALSE)[[1]])
 }
 
 ### we now have the raw data read into players data frame

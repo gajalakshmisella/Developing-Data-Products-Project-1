@@ -17,7 +17,7 @@ shinyUI(pageWithSidebar(
       "have changed over the years for the new players (commonly known as rookies)",
       "entering the league. "),
   
-    selectInput("select", label = h3("Choose the dimention"), 
+    selectInput("select", label = h3("Choose the dimension"), 
                 choices = list("Height" = 1, "Weight" = 2,
                                "BMI" = 3, "Age" = 4), selected = 1)          
   ),
