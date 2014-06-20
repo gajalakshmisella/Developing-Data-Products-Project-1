@@ -11,32 +11,32 @@ shinyServer(function(input, output) {
          
     if (input$select == 1) {
       display_data <- totals$HeightInches
-      title = "Heigh of Rookies"
+      title = "Heights"
       ylabel <- "Heigh (inches)"
     } else if (input$select == 2) {
       display_data <- totals$Wt
-      title = "Weight of Rookies"        
+      title = "Weights"        
       ylabel <- "Weight (lbs)"
     } else if (input$select == 3) {
       display_data <- totals$BMI
-      title = "Body-Mass Index of Rookies"  
+      title = "Body-Mass Indexes"  
       ylabel <- "BMI"      
     } else {
-      display_data <- totals$RookieAge
-      title = "Age as a Rookie"        
-      ylabel <- "Age"
+      display_data <- totals$Age
+      title = "Age"        
+      ylabel <- "Age in Years"
     }
     
-    p <- qplot(totals$From, display_data,
+    p <- qplot(totals$Year, display_data,
+               colour = factor(totals$Rookie),
                main = title,
                xlab = "Year",
                ylab = ylabel
-               )
+    )
     p <- p + scale_x_continuous(breaks=seq(1950, 2010, 10))
-    p <- p + stat_smooth(method="loess")
     p <- p + theme(text = element_text(size=20), 
                    title = element_text(size=20))
-    print(p)        
+    p <- p + stat_smooth(method="loess", aes(fill=factor(totals$Rookie)))
+    print(p)     
   })
-  
 })
