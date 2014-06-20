@@ -7,15 +7,14 @@ library(shiny)
 shinyUI(pageWithSidebar(
   
   # Application title
-  headerPanel("NBA Rookie Comparison Application"),
- 
+  headerPanel("NBA Player Comparison Application"),
   
   # Sidebar with a slider input for number of observations
   sidebarPanel(
   
-    helpText("Explore how the average NBA player characteristics (heigh, weight, age and BMI), ",
-      "have changed over the years for the new players (commonly known as rookies)",
-      "entering the league. "),
+    helpText("Explore how the average NBA player characteristics (height, weight, age and BMI), ",
+      "have changed over the years. We also show new players (commonly known as rookies)",
+      "entering the league separately."),
   
     selectInput("select", label = h3("Choose the dimension"), 
                 choices = list("Height" = 1, "Weight" = 2,
