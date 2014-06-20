@@ -11,25 +11,44 @@ shinyServer(function(input, output) {
       display_data <- totals$HeightInches
       title = "Height of Players"
       ylabel <- "Heigh (inches)"
-      p <- ggplot(totals, aes(x=Year, y=HeightInches, colour=Rookie)) + geom_point()
+      if (input$show_rookies) {
+        p <- ggplot(totals, aes(x=Year, y=HeightInches, colour=Rookie)) + geom_point()
+        p <- p + scale_color_manual(values=c("blue", "red"))
+      } else {
+        p <- ggplot(totals[totals$Rookie=="Everyone",], aes(x=Year, y=HeightInches)) + geom_point(colour="blue")        
+      }
     } else if (input$select == 2) {
       display_data <- totals$Wt
       title = "Weight of Players"        
       ylabel <- "Weight (lbs)"
-      p <- ggplot(totals, aes(x=Year, y=Wt, colour=Rookie)) + geom_point()
-      } else if (input$select == 3) {
+      if (input$show_rookies) {
+        p <- ggplot(totals, aes(x=Year, y=Wt, colour=Rookie)) + geom_point()
+        p <- p + scale_color_manual(values=c("blue", "red"))
+      } else {
+        p <- ggplot(totals[totals$Rookie=="Everyone",], aes(x=Year, y=Wt)) + geom_point(colour="blue")        
+      }
+    } else if (input$select == 3) {
       display_data <- totals$BMI
       title = "Body-Mass Indexe of Players"  
       ylabel <- "BMI"
-      p <- ggplot(totals, aes(x=Year, y=BMI, colour=Rookie)) + geom_point()      
+      if (input$show_rookies) {
+        p <- ggplot(totals, aes(x=Year, y=BMI, colour=Rookie)) + geom_point()
+        p <- p + scale_color_manual(values=c("blue", "red"))
+      } else {
+        p <- ggplot(totals[totals$Rookie=="Everyone",], aes(x=Year, y=BMI)) + geom_point(colour="blue")        
+      }
     } else {
       display_data <- totals$Age
       title = "Age of Players"
       ylabel <- "Age (years)"
-      p <- ggplot(totals, aes(x=Year, y=Age, colour=Rookie)) + geom_point()    
+      if (input$show_rookies) {
+        p <- ggplot(totals, aes(x=Year, y=Age, colour=Rookie)) + geom_point()
+        p <- p + scale_color_manual(values=c("blue", "red"))
+      } else {
+        p <- ggplot(totals[totals$Rookie=="Everyone",], aes(x=Year, y=Age)) + geom_point(colour="blue")        
+      }
     }
     
-    p <- p + scale_color_manual(values=c("red", "blue"))
     p <- p + stat_smooth(method="loess")
     p <- p + ggtitle(title) + ylab(ylabel)
     p <- p + labs(colour = "Players")
